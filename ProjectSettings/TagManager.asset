@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Exit
+  - Erik
+  - Baleog
+  - Olaf
+  - Panel
+  - Enemy
+  - Ladder
+  - Ground
+  - EndOfLadder
+  - Weapon
+  - VirusBarrier
+  - VirusBarrierLeft
+  - VirusBarrierRight
+  - Shield
+  - Arrow
+  - ErikItem
+  - BaleogItem
+  - OlafItem
+  - Green
+  - Yellow
+  - White
+  - Enviroment
+  - Wall
+  - Electricity
+  - DNA
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Ground
+  - Player
+  - Ladder
+  - AiBarrier
+  - Enemy
+  - Shield
+  - EnemyVirus1
+  - Arrow
+  - Field
+  - Enviroment
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Back Background
+    uniqueID: 3507567743
+    locked: 0
+  - name: Background
+    uniqueID: 1918054429
+    locked: 0
+  - name: Midground
+    uniqueID: 3587341649
+    locked: 0
+  - name: Mid-for
+    uniqueID: 4048485461
+    locked: 0
+  - name: Forground
+    uniqueID: 3251971809
+    locked: 0
