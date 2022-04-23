@@ -61,6 +61,11 @@ public class ErikControls : MonoBehaviour
         cc = GetComponent<CapsuleCollider2D>();
         colliderSize = cc.size;
     }
+    public void UpdateSpeed(float percentage)
+    {
+        speed += percentage * speed / 100;
+        speedY += percentage * speedY / 100;
+    }
 
     public void DecrementLives(int hitPoints)
     {

@@ -94,6 +94,11 @@ public class OlafControls : MonoBehaviour
         }
     }
 
+    public void UpdateSpeed(float percentage)
+    {
+        speed += percentage * speed / 100;
+        speedY += percentage * speedY / 100;
+    }
 
     private void MovementAxisX()
     {

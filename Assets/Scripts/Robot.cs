@@ -6,7 +6,7 @@ public class Robot : MonoBehaviour
 {
     private float speed = 4;
     private float speedY = 4f;
-    private float lives = 1;
+    private float lives = 10;
 
     private Animator robotAnimation;
 
@@ -41,6 +41,7 @@ public class Robot : MonoBehaviour
 
     private bool canFall;
     private bool startCorutine;
+    private bool hasStartedAnimation = false;
 
     private bool movingRight = true;    // tine directia de miscare
     public Transform groundCheck;       // verifica daca avem pamant in fata
@@ -62,6 +63,12 @@ public class Robot : MonoBehaviour
         Gizmos.DrawWireSphere(groundCheck.position, 4f);
         Gizmos.DrawRay(groundCheck.position, direction);
 
+    }
+
+    public void DamageUpdate(float damage)
+    {
+        lives -= damage;
+        Debug.Log("Robot hit");
     }
 
     public IEnumerator CanFall()     // reseteaza booleanul care permite miscarea pe y dupa 0.1 S
@@ -94,7 +101,9 @@ public class Robot : MonoBehaviour
     {
         GameObject projectile = Instantiate(projectilePrefab) as GameObject;
         projectile.transform.localScale = transform.localScale;
+        projectile.transform.eulerAngles = transform.eulerAngles;
         projectile.transform.position = new Vector3(transform.position.x, transform.position.y + 0.573f, transform.position.z);
+        projectile.transform.rotation = transform.rotation;
     }
 
     private void IsAttacking(string closestViking)
@@ -330,14 +339,14 @@ public class Robot : MonoBehaviour
             canFall = false;
             startCorutine = false;
             rigidBody.velocity = new Vector2((movingRight ?1 :-1) * speed, 0.0f);
-            Debug.Log("1");
+            //Debug.Log("1");
         }
         else if (onGroundZeroDist && isOnSlope)
         {
             canFall = false;
             startCorutine = false;
             rigidBody.velocity = new Vector2((movingRight ? 1 : -1) * speed * slopeNormalPerp.x, 5);     // punem - din cauza ca trebuie compensat de cum e determianta normala
-            Debug.Log("2");
+          //  Debug.Log("2");
         }
         else if (!onGroundZeroDist)
         {
@@ -346,9 +355,20 @@ public class Robot : MonoBehaviour
                 rigidBody.velocity = new Vector2((movingRight ? 1 : -1) * speed, 0f);
             else
                 rigidBody.velocity = new Vector2((movingRight ? 1 : -1) * speed, rigidBody.velocity.y);
-            Debug.Log("3");
+            //Debug.Log("3");
         }
-        Debug.Log(movingRight);
+        //Debug.Log(movingRight);
+    }
+
+    private void StartDeathAnimation(string message)
+    {
+        //robotAnimation.SetBool("isDead", true);
+        //isDead = true;
+    }
+
+    private void EndDeathAnimation(string message)
+    {
+        Destroy(this.gameObject);
     }
 
     // Start is called before the first frame update
@@ -369,35 +389,54 @@ public class Robot : MonoBehaviour
     void Update()
     {
         string closestViking;
-        onGroundZeroDist = Physics2D.OverlapCircle(onGroundZeroDistCheckPoint.position, onGroundZeroDistCheckRadius, groundLayer); // Physics2D.OverlapCircle(onGroundZeroDistCheckPoint2.position, 
 
-        if (startCorutine)    // daca nu sare si ajunge la capatul pantei, atunci putem sa initiem corutina
+        if (!isDead)
         {
-            StartCoroutine(CanFall());
-        }
+            onGroundZeroDist = Physics2D.OverlapCircle(onGroundZeroDistCheckPoint.position, onGroundZeroDistCheckRadius, groundLayer); // Physics2D.OverlapCircle(onGroundZeroDistCheckPoint2.position, 
 
-        SplopeCheck();
-
-        if (isDead)
-        {
-            StartCoroutine(IsDead());
-        }
-        else
-        {
-            closestViking = CheckAttackConditions();
-            Debug.Log(isAttacking);
-
-            if (isAttacking)
+            //Debug.Log("ssss");
+            if (lives > 0)
             {
-                //Debug.Log("ssss");
-                IsAttacking(closestViking);
-                rigidBody.velocity = new Vector2(0, 0);
+                if (startCorutine)    // daca nu sare si ajunge la capatul pantei, atunci putem sa initiem corutina
+                {
+                    StartCoroutine(CanFall());
+                }
+
+                SplopeCheck();
+            }
+
+            if (lives <= 0)
+            {
+                //StartCoroutine(IsDead());
+                //transform.position = Vector2.MoveTowards(transform.position, transform.position, 0);
+                //robotAnimation.SetBool("isDead", true);
+                isDead = true;
+                //yield return new WaitForSeconds(1f);
+                // Destroy(this.gameObject);
             }
             else
             {
-                //Debug.Log("ssss");
-                Movement();
+                closestViking = CheckAttackConditions();
+                //Debug.Log(isAttacking);
+
+                if (isAttacking)
+                {
+                    //Debug.Log("ssss");
+                    IsAttacking(closestViking);
+                    rigidBody.velocity = new Vector2(0, 0);
+                }
+                else
+                {
+                    //Debug.Log("ssss");
+                    Movement();
+                }
             }
+        }
+        else
+        {
+            hasStartedAnimation = true;
+            rigidBody.velocity = new Vector2(0, rigidBody.velocity.y);
+            robotAnimation.SetBool("isDead", true);
         }
     }
 }

@@ -57,6 +57,12 @@ public class BaleogControls : MonoBehaviour
             endOfTheLadder = true;
     }
 
+    public void UpdateSpeed(float percentage)
+    {
+        speed += percentage * speed / 100;
+        speedY += percentage * speedY / 100;
+    }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.tag.Equals("Ladder"))

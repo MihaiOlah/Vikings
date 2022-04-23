@@ -21,11 +21,16 @@ public class Arrow : MonoBehaviour
             {
                 other.GetComponent<Virus2>().DamageUpdate(0.5f);
             }
-
             else if (other.GetComponent<Virus1>() != null)
             {
                 other.GetComponent<Virus1>().DamageUpdate(0.5f);
             }
+            else if (other.GetComponent<Robot>() != null)
+            {
+                Debug.Log("Arrow hit");
+                other.GetComponent<Robot>().DamageUpdate(1f);
+            }
+
             Destroy(this.gameObject);
         }
         else if (other.tag == "Wall" || other.tag == "Ground")

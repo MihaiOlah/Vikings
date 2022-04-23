@@ -88,6 +88,7 @@
     <Compile Include="Assets\Scripts\SlotErik.cs" />
     <Compile Include="Assets\Scripts\SlotOlaf.cs" />
     <Compile Include="Assets\Scripts\Item scripts\AppleAndRadishItems.cs" />
+    <Compile Include="Assets\Scripts\RobotProjectile.cs" />
     <Compile Include="Assets\Scripts\Item scripts\Key.cs" />
     <Compile Include="Assets\Scripts\CameraControl.cs" />
     <Compile Include="Assets\Samples\2D SpriteShape\3.0.14\Sprite Shape Extras\Scripts\Sprinkler.cs" />
@@ -96,7 +97,7 @@
     <Compile Include="Assets\Scripts\EndOfStarPlatform.cs" />
     <Compile Include="Assets\Samples\2D SpriteShape\3.0.14\Sprite Shape Extras\Scripts\LegacyCollider.cs" />
     <Compile Include="Assets\Scripts\Door.cs" />
-    <Compile Include="Assets\Scripts\RobotProjectile.cs" />
+    <Compile Include="Assets\Scripts\Cross.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\save.txt" />

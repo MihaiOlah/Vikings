@@ -49,12 +49,16 @@ public class RobotProjectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.localScale.x == 1)        // daca merge spre dreapta adunam 35, fiindca e pe x pozitiv, altfel scadem, fiindca e pe x negativ
+        if (transform.eulerAngles.y == 0)        // daca merge spre dreapta adunam 35, fiindca e pe x pozitiv, altfel scadem, fiindca e pe x negativ
+        {
             transform.position = Vector2.MoveTowards(new Vector2(transform.position.x, transform.position.y), new Vector2(initialX + 35f, transform.position.y), speed * Time.deltaTime); // sageata calatoreste 15 pozitii
+        }
         else     // adunam la initialX fiindac altfel s-ar duce la infinit pentru ca ar fi acceeasi pozitie
+        {
             transform.position = Vector2.MoveTowards(new Vector2(transform.position.x, transform.position.y), new Vector2(initialX - 35f, transform.position.y), speed * Time.deltaTime);
+        }
+
         if (Mathf.Approximately(initialX, transform.position.x + 35f) || Mathf.Approximately(initialX, transform.position.x - 35f))   //cand ajunge la pozitia limita, sageata e distrusa
             Destroy(this.gameObject);
-
     }
 }
